@@ -10,17 +10,15 @@ def get_image_properties(directory, resize_dim):
 
         foldername = all_folders[i]
         folder_path = directory + "/" + foldername
-        folder_files = [name for name in os.listdir(folder_path)]
         
-        if len(folder_files) > 0:
+        if len(os.listdir(folder_path)) > 0:
 
             for filename in os.listdir(folder_path):
 
                 file_path = folder_path + '/' + filename
                 # Convert image to greyscale 
                 image = Image.open(file_path).convert('1')
-                if resize_dim != None:
-                    image = image.resize(resize_dim, Image.ANTIALIAS)
+                image = image.resize(resize_dim, Image.ANTIALIAS)
                 image_pixels = list(image.getdata())
                 pixels.append(image_pixels)
                 labels.append(i)
