@@ -4,18 +4,24 @@ import numpy as np
 
 def get_image_properties(directory, resize_dim):
     
-    pixels, labels = [], [] 
+    pixels, labels, pics = [], [], [] 
     all_folders = os.listdir(directory)
     for i in range(len(all_folders)):
 
         foldername = all_folders[i]
         folder_path = directory + "/" + foldername
-        
-        if len(os.listdir(folder_path)) > 0:
+        all_files = os.listdir(folder_path)
+        all_files_size = len(all_files)
 
-            for filename in os.listdir(folder_path):
+        if all_files_size > 0:
+            
+            # Save single example image from each folder
+            image = Image.open(folder_path + '/' + all_files[0]).convert('1')
+            pics.append([image, foldername])
 
-                file_path = folder_path + '/' + filename
+            for j in range(all_files_size):
+
+                file_path = folder_path + '/' + all_files[j]
                 # Convert image to greyscale 
                 image = Image.open(file_path).convert('1')
                 image = image.resize(resize_dim, Image.ANTIALIAS)
@@ -27,4 +33,4 @@ def get_image_properties(directory, resize_dim):
     labels = np.array(labels)
     # Normalize pixel intensities
     pixels = pixels / 255.0
-    return [pixels, labels]
+    return [pixels, labels, pics]
