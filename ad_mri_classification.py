@@ -7,7 +7,7 @@ from sklearn.metrics import accuracy_score, confusion_matrix
 import matplotlib.pyplot as plt 
 from utils import get_image_properties
 
-batch_size = 40
+batch_size = 32
 resize_dim = (208, 208)
 
 # Import training dataset
@@ -64,28 +64,26 @@ model.add(BatchNormalization())
 model.add(Dropout(0.2))
 
 # Create Deep Neural Network 
-model.add(Dense(256, activation='relu', kernel_initializer='he_uniform'))
-model.add(BatchNormalization())
-model.add(Dropout(0.2))
+# model.add(Dense(256, activation='relu', kernel_initializer='he_uniform'))
+# model.add(BatchNormalization())
+# model.add(Dropout(0.2))
 model.add(Dense(128, activation='relu', kernel_initializer='he_uniform'))
 model.add(BatchNormalization())
 model.add(Dropout(0.2))
 model.add(Dense(4, activation='softmax'))
 
 # Note: Using AUC over standard accuracy metric
-# opt = SGD(learning_rate=0.01, momentum=0.90)
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=[AUC(name='auc')])
-model.fit(features_train, target_train, epochs=5, batch_size=batch_size, validation_data=(features_test, target_test))
+model.fit(features_train, target_train, epochs=3, batch_size=batch_size, validation_data=(features_test, target_test))
 
-# Evaluate training dataset
+# # Evaluate training dataset
 results = model.evaluate(features_test, target_test, use_multiprocessing=True)
 print("Training test results:", results)
 
 
-
 # Test mode with different dataset
 print("Testing model with test dataset...\n")
-test_features, test_target = get_image_properties('./dataset/test', resize_dim)
+test_features, test_target, _ = get_image_properties('./dataset/test', resize_dim)
 test_target_orig = test_target 
 
 test_features = test_features.reshape(test_features.shape[0], 208, 208, 1)
