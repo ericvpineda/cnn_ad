@@ -3,7 +3,6 @@ from keras.layers import Dense, BatchNormalization, Conv2D, MaxPool2D, Flatten, 
 from keras.utils import to_categorical
 from keras.metrics import AUC
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score, confusion_matrix
 import matplotlib.pyplot as plt 
 from utils import get_image_properties
 
@@ -33,7 +32,6 @@ features_train, features_test, target_train, target_test = train_test_split(feat
 
 features_train = features_train.reshape(features_train.shape[0], 208, 208, 1)
 features_test = features_test.reshape(features_test.shape[0], 208, 208, 1)
-
 features_train = features_train.astype('float32')
 features_test = features_test.astype('float32')
 
@@ -64,9 +62,6 @@ model.add(BatchNormalization())
 model.add(Dropout(0.2))
 
 # Create Deep Neural Network 
-# model.add(Dense(256, activation='relu', kernel_initializer='he_uniform'))
-# model.add(BatchNormalization())
-# model.add(Dropout(0.2))
 model.add(Dense(128, activation='relu', kernel_initializer='he_uniform'))
 model.add(BatchNormalization())
 model.add(Dropout(0.2))
