@@ -2,7 +2,7 @@
 ![AD Cnn Test Information](./img/cnn_ad_example.jpg)
 
 # Description
-- Script that classify's over 5000 images of AD patients brain scans using CNN.
+- Jupter Notebook script that classify's over 5000 images of AD patients brain scans using CNN.
 - See full script in [Jupyter Notebook](https://github.com/ericvpineda/cnn_ad/blob/master/ad_mri_classification.ipynb)
 
 # Resources 
